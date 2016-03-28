@@ -21,6 +21,8 @@ public class World implements CellListener{
 	private Cell[][] map;
 	private int playerRow;
 	private int playerColumn;
+	
+	WorldListener worldListener;
 
 	public World() {
 		map = new Cell[MAP_SIZE][MAP_SIZE];
@@ -121,19 +123,16 @@ public class World implements CellListener{
 
 	@Override
 	public void onFoeEncountered(NonPlayableFighter foe) {
-		// TODO Auto-generated method stub
-		
+		worldListener.onFoeEncountered(foe);
 	}
 
 	@Override
 	public void onCollectibleFound(Collectible collectible) {
-		// TODO Auto-generated method stub
+		worldListener.onCollectibleFound(collectible);
 		map[playerRow][playerColumn] = new EmptyCell();
-		
 	}
 	
 	void resetPlayerPosition(){
-		//TODO set pos to 9,9
 		this.playerRow = 9;
 		this.playerColumn = 9;
 	}

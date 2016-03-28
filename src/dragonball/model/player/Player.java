@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import dragonball.model.attack.SuperAttack;
 import dragonball.model.attack.UltimateAttack;
+import dragonball.model.cell.Collectible;
 import dragonball.model.character.fighter.PlayableFighter;
 import dragonball.model.dragon.DragonWish;
 import dragonball.model.game.Game;
@@ -18,6 +19,9 @@ public class Player {
 	private PlayableFighter activeFighter;
 	private int exploredMaps;
 	private Game game;
+	private ArrayList<Collectible> collectibles;
+	
+	private PlayerListener playerListener;
 
 	public Player(String name) {
 		this(name, new ArrayList<PlayableFighter>(), new ArrayList<SuperAttack>(), new ArrayList<UltimateAttack>(), 0,
@@ -35,6 +39,7 @@ public class Player {
 		this.dragonBalls = dragonBalls;
 		this.activeFighter = activeFighter;
 		this.exploredMaps = exploredMaps;
+		this.collectibles = new ArrayList<Collectible>();
 	}
 	
 	//Milestone 2
@@ -50,7 +55,7 @@ public class Player {
 	}
 	
 	void callDragon(){
-		//TODO notify the listeners
+		playerListener.onDragonCalled();
 	}
 	
 	void chooseWish(DragonWish wish){
@@ -143,6 +148,22 @@ public class Player {
 
 	public void setGame(Game game) {
 		this.game = game;
+	}
+
+	public ArrayList<Collectible> getCollectibles() {
+		return collectibles;
+	}
+
+	public void setCollectibles(ArrayList<Collectible> collectibles) {
+		this.collectibles = collectibles;
+	}
+
+	public PlayerListener getPlayerListener() {
+		return playerListener;
+	}
+
+	public void setPlayerListener(PlayerListener playerListener) {
+		this.playerListener = playerListener;
 	}
 	
 	

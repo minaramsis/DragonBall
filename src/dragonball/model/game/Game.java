@@ -10,12 +10,18 @@ import dragonball.model.attack.MaximumCharge;
 import dragonball.model.attack.SuperAttack;
 import dragonball.model.attack.SuperSaiyan;
 import dragonball.model.attack.UltimateAttack;
+import dragonball.model.battle.BattleEvent;
+import dragonball.model.battle.BattleListener;
+import dragonball.model.cell.Collectible;
 import dragonball.model.character.fighter.NonPlayableFighter;
 import dragonball.model.dragon.Dragon;
+import dragonball.model.dragon.DragonWish;
 import dragonball.model.player.Player;
+import dragonball.model.player.PlayerListener;
 import dragonball.model.world.World;
+import dragonball.model.world.WorldListener;
 
-public class Game {
+public class Game implements PlayerListener, WorldListener, BattleListener{
 	private Player player;
 	private World world;
 	private ArrayList<NonPlayableFighter> weakFoes;
@@ -196,5 +202,35 @@ public class Game {
 					dragonsBalls);
 			dragons.add(dragon);
 		}
+	}
+
+	@Override
+	public void onBattleEvent(BattleEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDragonCalled() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onWishChosen(DragonWish wish) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onFoeEncountered(NonPlayableFighter foe) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollectibleFound(Collectible collectible) {
+		// TODO Auto-generated method stub
+		
 	}
 }
