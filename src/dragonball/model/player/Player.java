@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import dragonball.model.attack.SuperAttack;
 import dragonball.model.attack.UltimateAttack;
 import dragonball.model.character.fighter.PlayableFighter;
+import dragonball.model.dragon.DragonWish;
 
 public class Player {
 	private String name;
@@ -32,6 +33,42 @@ public class Player {
 		this.dragonBalls = dragonBalls;
 		this.activeFighter = activeFighter;
 		this.exploredMaps = exploredMaps;
+	}
+	
+	//Milestone 2
+	
+	int getMaxFighterLevel(){
+		int maxLvl = 0;
+		for(PlayableFighter fighter: fighters){
+			if(fighter.getLevel() > maxLvl){
+				maxLvl = fighter.getLevel();
+			}
+		}
+		return maxLvl;
+	}
+	
+	void callDragon(){
+		//TODO notify the listeners
+	}
+	
+	void chooseWish(DragonWish wish){
+		//TODO 1) grant wish 2) notify the listerner that a wish was made
+	}
+	
+	void createFighter(char race, String name){
+		//TODO create the fighter, if first then set as active
+	}
+	
+	void upgradeFighter(PlayableFighter fighter, char fighterAttribute){
+		//TODO upgrade the specified attribute
+	}
+	
+	void assignAttack(PlayableFighter fighter, SuperAttack newAttack, SuperAttack oldAttack){
+		//TODO replace oldattack with newattack
+	}
+	
+	void assignAttack(PlayableFighter fighter, UltimateAttack newAttack, UltimateAttack oldAttack){
+		//TODO replace oldattack with newattack
 	}
 
 	public String getName() {

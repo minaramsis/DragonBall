@@ -14,20 +14,21 @@ public class DragonWish extends EventObject{
 	private UltimateAttack ultimateAttack;
 	
 	DragonWish(Dragon dragon, DragonWishType type){
-		
+		super(dragon);
 	}
 	
 	DragonWish(Dragon dragon, DragonWishType type, int senzuBeansOrAbilityPoints){
-		
+		this(dragon,type);
 	}
 	
 	DragonWish(Dragon dragon, DragonWishType type, SuperAttack superAttack){
-		
+		this(dragon,type);
 	}
 	
 	DragonWish(Dragon dragon, DragonWishType type, UltimateAttack ultimateAttack){
-		
+		this(dragon,type);
 	}
+	
 	public DragonWishType getType() {
 		return type;
 	}

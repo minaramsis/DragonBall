@@ -14,21 +14,21 @@ public class BattleEvent extends EventObject{
 	private Collectible collectible;
 	
 	public BattleEvent(Battle battle, BattleEventType type){
-		
+		super(battle);
 	}
 	
 	public BattleEvent(Battle battle, BattleEventType type, BattleOpponent winner){
-		
+		this(battle,type);
 	}
 	
 	public BattleEvent(Battle battle, BattleEventType type, Attack attack){
-		
+		this(battle,type);
 	}
 	
 
 
 	public BattleEvent(Battle battle, BattleEventType type, Collectible collectible){
-		
+		this(battle,type);
 	}
 	
 	public BattleEventType getType() {
