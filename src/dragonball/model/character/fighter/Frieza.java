@@ -16,4 +16,20 @@ public class Frieza extends PlayableFighter {
 		super(name, level, xp, targetXp, maxHealthPoints, blastDamage, physicalDamage, abilityPoints, maxKi, maxStamina,
 				superAttacks, ultimateAttacks);
 	}
+
+	@Override
+	public void onAttackerTurn() {
+
+		if(this.getStamina()<this.getMaxStamina())
+			this.setStamina(this.getStamina() + 1);
+		
+	}
+
+	@Override
+	public void onDefenderTurn() {
+
+		if(this.getStamina()<this.getMaxStamina())
+			this.setStamina(this.getStamina() + 1);
+		
+	}
 }

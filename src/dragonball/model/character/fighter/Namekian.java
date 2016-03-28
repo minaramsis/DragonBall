@@ -16,4 +16,26 @@ public class Namekian extends PlayableFighter {
 		super(name, level, xp, targetXp, maxHealthPoints, blastDamage, physicalDamage, abilityPoints, maxKi, maxStamina,
 				superAttacks, ultimateAttacks);
 	}
+
+	@Override
+	public void onAttackerTurn() {
+
+		if(getStamina()<this.getMaxStamina())
+			this.setStamina(this.getStamina() + 1);
+		
+		if(getHealthPoints()<this.getMaxHealthPoints())
+			this.setHealthPoints(this.getHealthPoints() + 50);
+		
+	}
+
+	@Override
+	public void onDefenderTurn() {
+
+		if(this.getStamina()<this.getMaxStamina())
+			this.setStamina(this.getStamina() + 1);
+		
+		if(this.getHealthPoints()<this.getMaxHealthPoints())
+			this.setHealthPoints(this.getHealthPoints() + 50);
+		
+	}
 }

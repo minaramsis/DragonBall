@@ -90,7 +90,7 @@ public class Game {
 
 		return lines.toArray(new String[][] {});
 	}
-	// testing gitgub
+	
 	private void loadAttacks(String filePath) {
 		String[][] lines = loadCSV(filePath);
 
