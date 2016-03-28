@@ -22,4 +22,9 @@ public class CollectibleCell extends Cell {
 
 		return "[" + Character.toLowerCase(collectible.name().charAt(0)) + "]";
 	}
+
+	@Override
+	public void onStep() {
+		this.getWorld().onCollectibleFound(collectible);
+	}
 }

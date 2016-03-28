@@ -21,4 +21,9 @@ public class FoeCell extends Cell {
 			return "[w]";
 		}
 	}
+
+	@Override
+	public void onStep() {
+		this.getWorld().onFoeEncountered(foe);
+	}
 }

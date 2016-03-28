@@ -5,4 +5,10 @@ public class EmptyCell extends Cell {
 	public String toString() {
 		return "[ ]";
 	}
+
+	@Override
+	public void onStep() {
+		// TODO Auto-generated method stub
+		
+	}
 }

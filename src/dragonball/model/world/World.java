@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import dragonball.model.cell.Cell;
+import dragonball.model.cell.CellListener;
 import dragonball.model.cell.Collectible;
 import dragonball.model.cell.CollectibleCell;
 import dragonball.model.cell.EmptyCell;
 import dragonball.model.cell.FoeCell;
 import dragonball.model.character.fighter.NonPlayableFighter;
 
-public class World {
+public class World implements CellListener{
 	public static final int MAP_SIZE = 10;
 	public static final int NUM_WEAK_FOES = 15;
 	public static final int NUM_MIN_SENZU_BEANS = 3;
@@ -116,5 +117,56 @@ public class World {
 		}
 
 		return toString.substring(0, toString.length() - 1);
+	}
+
+	@Override
+	public void onFoeEncountered(NonPlayableFighter foe) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onCollectibleFound(Collectible collectible) {
+		// TODO Auto-generated method stub
+		map[playerRow][playerColumn] = new EmptyCell();
+		
+	}
+	
+	void resetPlayerPosition(){
+		//TODO set pos to 9,9
+		this.playerRow = 9;
+		this.playerColumn = 9;
+	}
+	
+	void moveUp(){
+		playerRow--;
+		if(playerRow < 0){
+			playerRow = 0;
+		}
+		map[playerRow][playerColumn].onStep();
+	}
+	
+	void moveDown(){
+		playerRow++;
+		if(playerRow > 9){
+			playerRow = 9;
+		}
+		map[playerRow][playerColumn].onStep();
+	}
+	
+	void moveRight(){
+		playerColumn++;
+		if(playerColumn > 9){
+			playerColumn = 9;
+		}
+		map[playerRow][playerColumn].onStep();
+	}
+	
+	void moveLeft(){
+		playerColumn--;
+		if(playerColumn < 0){
+			playerColumn = 0;
+		}
+		map[playerRow][playerColumn].onStep();
 	}
 }

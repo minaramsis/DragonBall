@@ -6,6 +6,7 @@ import dragonball.model.attack.SuperAttack;
 import dragonball.model.attack.UltimateAttack;
 import dragonball.model.character.fighter.PlayableFighter;
 import dragonball.model.dragon.DragonWish;
+import dragonball.model.game.Game;
 
 public class Player {
 	private String name;
@@ -16,6 +17,7 @@ public class Player {
 	private int dragonBalls;
 	private PlayableFighter activeFighter;
 	private int exploredMaps;
+	private Game game;
 
 	public Player(String name) {
 		this(name, new ArrayList<PlayableFighter>(), new ArrayList<SuperAttack>(), new ArrayList<UltimateAttack>(), 0,
@@ -134,4 +136,14 @@ public class Player {
 	public void setExploredMaps(int exploredMaps) {
 		this.exploredMaps = exploredMaps;
 	}
+
+	public Game getGame() {
+		return game;
+	}
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+	
+	
 }
