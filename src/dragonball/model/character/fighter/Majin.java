@@ -16,4 +16,17 @@ public class Majin extends PlayableFighter {
 		super(name, level, xp, targetXp, maxHealthPoints, blastDamage, physicalDamage, abilityPoints, maxKi, maxStamina,
 				superAttacks, ultimateAttacks);
 	}
+
+	@Override
+	public void onAttackerTurn() {
+		
+	}
+
+	@Override
+	public void onDefenderTurn() {
+
+		if(this.getStamina()<this.getMaxStamina())
+			this.setStamina(this.getStamina() + 1);
+		
+	}
 }

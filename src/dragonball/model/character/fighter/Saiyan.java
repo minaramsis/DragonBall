@@ -26,4 +26,34 @@ public class Saiyan extends PlayableFighter {
 	public void setTransformed(boolean transformed) {
 		this.transformed = transformed;
 	}
+
+	@Override
+	public void onAttackerTurn() {
+
+		if(this.isTransformed()==true)
+			if(this.getKi()>0)
+				this.setKi(this.getKi() - 1);
+				else{
+					this.setStamina(0);
+					this.setTransformed(false);
+				}
+					else if(this.getStamina()<this.getMaxStamina())
+						this.setStamina(this.getStamina() + 1);
+			
+	}
+
+	@Override
+	public void onDefenderTurn() {
+
+		if(this.isTransformed()==true)
+			if(this.getKi()>0)
+				this.setKi(this.getKi() - 1);
+				else{
+					this.setStamina(0);
+					this.setTransformed(false);
+				}
+					else if(this.getStamina()<this.getMaxStamina())
+						this.setStamina(this.getStamina() + 1);
+			
+	}
 }
