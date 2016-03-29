@@ -8,7 +8,7 @@ public class PhysicalAttack extends Attack {
 		super("Physical Attack", 50);
 	}
 
-	int getAppliedDamage(BattleOpponent attacker) {
+	public int getAppliedDamage(BattleOpponent attacker) {
 		return getDamage() + ((Fighter)attacker).getPhysicalDamage();
 	}
 

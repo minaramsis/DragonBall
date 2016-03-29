@@ -13,7 +13,7 @@ public abstract class Attack {
 		this.damage = damage;
 	}
 	
-	abstract int getAppliedDamage(BattleOpponent attacker);
+	abstract public int getAppliedDamage(BattleOpponent attacker);
 	
 	public void onUse(BattleOpponent attacker, BattleOpponent defender,
 			boolean defenderBlocking) {

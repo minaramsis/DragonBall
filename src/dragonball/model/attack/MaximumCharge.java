@@ -9,7 +9,7 @@ public class MaximumCharge extends SuperAttack {
 	}
 	
 	@Override
-	int getAppliedDamage(BattleOpponent attacker) {
+	public int getAppliedDamage(BattleOpponent attacker) {
 		return 0;
 	}
 

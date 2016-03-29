@@ -47,7 +47,7 @@ public class Player {
 	
 	//Milestone 2
 	
-	int getMaxFighterLevel(){
+	public int getMaxFighterLevel(){
 		int maxLvl = 0;
 		for(PlayableFighter fighter: fighters){
 			if(fighter.getLevel() > maxLvl){

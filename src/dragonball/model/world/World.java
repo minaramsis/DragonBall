@@ -22,7 +22,7 @@ public class World implements CellListener{
 	private int playerRow;
 	private int playerColumn;
 	
-	WorldListener worldListener;
+	public WorldListener worldListener;
 
 	public World() {
 		map = new Cell[MAP_SIZE][MAP_SIZE];
