@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import dragonball.model.attack.Attack;
 import dragonball.model.attack.MaximumCharge;
@@ -29,19 +30,27 @@ public class Game implements PlayerListener, WorldListener, BattleListener{
 	private ArrayList<Attack> attacks;
 	private ArrayList<Dragon> dragons;
 	private GameState state;
+	
+	private GameListener gameListener;
 
 	public Game() {
 		weakFoes = new ArrayList<>();
 		strongFoes = new ArrayList<>();
 		attacks = new ArrayList<>();
 		dragons = new ArrayList<>();
-
+		state = GameState.WORLD;
+		
 		loadAttacks("Database-Attacks.csv");
 		loadFoes("Database-Foes-Range1.csv");
 		loadDragons("Database-Dragons.csv");
 
 		world = new World();
 		world.generateMap(weakFoes, strongFoes);
+		world.setWorldListener(this);
+		
+		player = new Player("");
+		player.setPlayerListener(this);
+		
 	}
 
 	public Player getPlayer() {
@@ -212,25 +221,30 @@ public class Game implements PlayerListener, WorldListener, BattleListener{
 
 	@Override
 	public void onDragonCalled() {
-		// TODO Auto-generated method stub
+		int dragonIndex;
+		Random rand = new Random();
+		dragonIndex = rand.nextInt(dragons.size());
+		player.setDragonBalls(0);
+		state = GameState.DRAGON;
+		gameListener.onDragonCalled(dragons.get(dragonIndex));
 		
 	}
 
 	@Override
 	public void onWishChosen(DragonWish wish) {
-		// TODO Auto-generated method stub
+		state = GameState.WORLD;
 		
 	}
 
 	@Override
 	public void onFoeEncountered(NonPlayableFighter foe) {
-		// TODO Auto-generated method stub
+		world.onFoeEncountered(foe);
 		
 	}
 
 	@Override
 	public void onCollectibleFound(Collectible collectible) {
-		// TODO Auto-generated method stub
+		world.onCollectibleFound(collectible);
 		
 	}
 }

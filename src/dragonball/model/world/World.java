@@ -121,6 +121,14 @@ public class World implements CellListener{
 		return toString.substring(0, toString.length() - 1);
 	}
 
+	public WorldListener getWorldListener() {
+		return worldListener;
+	}
+
+	public void setWorldListener(WorldListener worldListener) {
+		this.worldListener = worldListener;
+	}
+
 	@Override
 	public void onFoeEncountered(NonPlayableFighter foe) {
 		worldListener.onFoeEncountered(foe);
@@ -132,12 +140,12 @@ public class World implements CellListener{
 		map[playerRow][playerColumn] = new EmptyCell();
 	}
 	
-	void resetPlayerPosition(){
+	public void resetPlayerPosition(){
 		this.playerRow = 9;
 		this.playerColumn = 9;
 	}
 	
-	void moveUp(){
+	public void moveUp(){
 		playerRow--;
 		if(playerRow < 0){
 			playerRow = 0;
@@ -145,7 +153,7 @@ public class World implements CellListener{
 		map[playerRow][playerColumn].onStep();
 	}
 	
-	void moveDown(){
+	public void moveDown(){
 		playerRow++;
 		if(playerRow > 9){
 			playerRow = 9;
@@ -153,7 +161,7 @@ public class World implements CellListener{
 		map[playerRow][playerColumn].onStep();
 	}
 	
-	void moveRight(){
+	public void moveRight(){
 		playerColumn++;
 		if(playerColumn > 9){
 			playerColumn = 9;
@@ -161,7 +169,7 @@ public class World implements CellListener{
 		map[playerRow][playerColumn].onStep();
 	}
 	
-	void moveLeft(){
+	public void moveLeft(){
 		playerColumn--;
 		if(playerColumn < 0){
 			playerColumn = 0;

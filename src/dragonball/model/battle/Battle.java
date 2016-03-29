@@ -6,6 +6,7 @@ import java.util.Random;
 import dragonball.model.cell.Collectible;
 import dragonball.model.character.fighter.Fighter;
 import dragonball.model.character.fighter.Saiyan;
+import dragonball.model.game.Game;
 import dragonball.model.player.Player;
 import dragonball.model.attack.Attack;
 import dragonball.model.attack.PhysicalAttack;
@@ -22,8 +23,8 @@ public class Battle {
 		this.me = me;
 		this.foe = foe;
 		this.attacker = me;
+		battleListener = new Game();
 
-		// set current values appropriately
 		Fighter meFighter = (Fighter) me;
 		meFighter.setHealthPoints(meFighter.getMaxHealthPoints());
 		meFighter.setKi(0);
@@ -43,7 +44,7 @@ public class Battle {
 		}
 	}
 	
-	ArrayList<Attack> getAssignedAttacks(){
+	public ArrayList<Attack> getAssignedAttacks(){
 		ArrayList<Attack> attacks = new ArrayList<Attack>();
 		
 		Attack physicalAttack = new PhysicalAttack();
@@ -55,11 +56,14 @@ public class Battle {
 		return attacks;
 	}
 	
-	void attack(Attack attack){
-		//TODO to be implemented
+	public void attack(Attack attack){
+		attack.onUse(attacker, getDefender(), attacker.equals(me) ? meBlocking : foeBlocking);
+		endTurn();
+		BattleEvent battleEvent = new BattleEvent(this, BattleEventType.ATTACK, attack);
+		battleListener.onBattleEvent(battleEvent);
 	}
 	
-	void block(){
+	public void block(){
 		if(attacker.equals(me)){
 			meBlocking = true;
 		}
@@ -70,19 +74,19 @@ public class Battle {
 		battleListener.onBattleEvent(battleEvent);
 	}
 	
-	void use(Player player, Collectible collectible){
+	public void use(Player player, Collectible collectible){
 		if(collectible == Collectible.SENZU_BEAN){
-			if(player.getCollectibles().contains(collectible)){
+			if(player.getSenzuBeans() >= 1){
 				player.getActiveFighter().setHealthPoints(999999);
 				player.getActiveFighter().setStamina(999999);
-				player.getCollectibles().remove(collectible);
+				player.setSenzuBeans(player.getSenzuBeans()-1);
 				BattleEvent battleEvent = new BattleEvent(this, BattleEventType.USE, collectible);
 				battleListener.onBattleEvent(battleEvent);
 			}
 		}
 	}
 	
-	BattleOpponent getDefender(){
+	public BattleOpponent getDefender(){
 		if(attacker.equals(me)){
 			return foe;
 		}else{
@@ -90,7 +94,7 @@ public class Battle {
 		}
 	}
 	
-	void play(){
+	public void play(){
 		attacker = foe;
 		ArrayList<Attack> attacks = getAssignedAttacks();
 		Random rand = new Random();
@@ -98,20 +102,31 @@ public class Battle {
 		if(choice == attacks.size()){
 			block();
 		}else{
-			//TODO method to be implemented
 			attack(attacks.get(choice));
 		}
 	}
 	
-	void start(){
-		//TODO to be implemented (notify listener that battle about to begin)
+	public void start(){
+		BattleEvent battleEvent = new BattleEvent(this, BattleEventType.STARTED);
+		battleListener.onBattleEvent(battleEvent);
 	}
 	
-	void endTurn(){
-		//TODO to be implemented
+	public void endTurn(){
+		if(((Fighter)foe).getHealthPoints() <= 0){
+			BattleEvent battleEvent = new BattleEvent(this,BattleEventType.ENDED, attacker);
+			battleListener.onBattleEvent(battleEvent);
+		}else{
+			meBlocking = false;
+			foeBlocking = false;
+			switchTurn();
+			attacker.onAttackerTurn();
+			getDefender().onDefenderTurn();
+			BattleEvent battleEvent = new BattleEvent(this,BattleEventType.NEW_TURN);
+			battleListener.onBattleEvent(battleEvent);
+		}
 	}
 	
-	void switchTurn(){
+	public void switchTurn(){
 		attacker = getDefender();
 	}
 

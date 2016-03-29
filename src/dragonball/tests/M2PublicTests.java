@@ -2542,6 +2542,7 @@ public class M2PublicTests {
 		int prevHP = e.getHealthPoints();
 		int prevStamina = e.getStamina();
 
+		System.out.println("sdfsdf sdfsdsdfsd fdsf");
 		b.attack(strong.getSuperAttacks().get(0));
 		assertEquals(
 				"if foe attacks me while me was blocking ,me's Stamina should be reduced according to the game rules",

@@ -25,6 +25,6 @@ public class CollectibleCell extends Cell {
 
 	@Override
 	public void onStep() {
-		this.getWorld().onCollectibleFound(collectible);
+		this.getWorldListener().onCollectibleFound(collectible);
 	}
 }

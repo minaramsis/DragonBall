@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import dragonball.model.attack.SuperAttack;
 import dragonball.model.attack.UltimateAttack;
 import dragonball.model.cell.Collectible;
+import dragonball.model.character.fighter.Earthling;
+import dragonball.model.character.fighter.Frieza;
+import dragonball.model.character.fighter.Majin;
+import dragonball.model.character.fighter.Namekian;
 import dragonball.model.character.fighter.PlayableFighter;
+import dragonball.model.character.fighter.Saiyan;
 import dragonball.model.dragon.DragonWish;
+import dragonball.model.dragon.DragonWishType;
 import dragonball.model.game.Game;
 
 public class Player {
@@ -18,8 +24,6 @@ public class Player {
 	private int dragonBalls;
 	private PlayableFighter activeFighter;
 	private int exploredMaps;
-	private Game game;
-	private ArrayList<Collectible> collectibles;
 	
 	private PlayerListener playerListener;
 
@@ -39,7 +43,6 @@ public class Player {
 		this.dragonBalls = dragonBalls;
 		this.activeFighter = activeFighter;
 		this.exploredMaps = exploredMaps;
-		this.collectibles = new ArrayList<Collectible>();
 	}
 	
 	//Milestone 2
@@ -54,28 +57,94 @@ public class Player {
 		return maxLvl;
 	}
 	
-	void callDragon(){
+	public void callDragon(){
 		playerListener.onDragonCalled();
 	}
 	
-	void chooseWish(DragonWish wish){
-		//TODO 1) grant wish 2) notify the listerner that a wish was made
+	public void chooseWish(DragonWish wish){
+		//TODO grant wishes? ap
+		switch(wish.getType()){
+			case ABILITY_POINTS:
+				getActiveFighter().setAbilityPoints(this.getActiveFighter().getAbilityPoints() + wish.getAbilityPoints());
+				break;
+			case SENZU_BEANS:
+				setSenzuBeans(getSenzuBeans() + wish.getSenzuBeans());
+				break;
+			case SUPER_ATTACK:
+				superAttacks.add(wish.getSuperAttack());
+				break;
+			case ULTIMATE_ATTACK:
+				ultimateAttacks.add(wish.getUltimateAttack());
+				break;
+		}
+		playerListener.onWishChosen(wish);
 	}
 	
-	void createFighter(char race, String name){
-		//TODO create the fighter, if first then set as active
+	public void createFighter(char race, String name){
+		PlayableFighter pf;
+		switch(race){
+			case 'E':
+				pf = new Earthling(name);
+				fighters.add(pf);
+				break;
+			case 'S':
+				pf = new Saiyan(name);
+				fighters.add(pf);
+				break;
+			case 'N':
+				pf = new Namekian(name);
+				fighters.add(pf);
+				break;
+			case 'F':
+				pf = new Frieza(name);
+				fighters.add(pf);
+				break;
+			case 'M':
+				pf = new Majin(name);
+				fighters.add(pf);
+				break;
+		}
+		if(fighters.size() == 1){
+			activeFighter = fighters.get(0);
+		}
 	}
 	
-	void upgradeFighter(PlayableFighter fighter, char fighterAttribute){
-		//TODO upgrade the specified attribute
+	public void upgradeFighter(PlayableFighter fighter, char fighterAttribute){
+		switch(fighterAttribute){
+			case 'H':
+				fighter.setMaxHealthPoints(fighter.getMaxHealthPoints() + 50);
+				break;
+			case 'B':
+				fighter.setBlastDamage(fighter.getBlastDamage() + 50);
+				break;
+			case 'P':
+				fighter.setPhysicalDamage(fighter.getPhysicalDamage() + 50);
+				break;
+			case 'K':
+				fighter.setMaxKi(fighter.getMaxKi()+1);
+				break;
+			case 'S':
+				fighter.setMaxStamina(fighter.getMaxStamina() + 1);
+				break;
+		}
 	}
 	
-	void assignAttack(PlayableFighter fighter, SuperAttack newAttack, SuperAttack oldAttack){
-		//TODO replace oldattack with newattack
+	public void assignAttack(PlayableFighter fighter, SuperAttack newAttack, SuperAttack oldAttack){
+		if(oldAttack == null && fighter.getSuperAttacks().size() < 4){
+			fighter.getSuperAttacks().add(newAttack);
+		}else if(oldAttack != null){
+			fighter.getSuperAttacks().remove(oldAttack);
+			fighter.getSuperAttacks().add(newAttack);
+		}
 	}
 	
-	void assignAttack(PlayableFighter fighter, UltimateAttack newAttack, UltimateAttack oldAttack){
-		//TODO replace oldattack with newattack
+	public void assignAttack(PlayableFighter fighter, UltimateAttack newAttack, UltimateAttack oldAttack){
+		if(oldAttack == null && fighter.getSuperAttacks().size() < 2){
+			fighter.getUltimateAttacks().add(newAttack);
+		}else if(oldAttack != null){
+			fighter.getUltimateAttacks().remove(oldAttack);
+			fighter.getUltimateAttacks().add(newAttack);
+		}
 	}
 
 	public String getName() {
@@ -140,22 +209,6 @@ public class Player {
 
 	public void setExploredMaps(int exploredMaps) {
 		this.exploredMaps = exploredMaps;
-	}
-
-	public Game getGame() {
-		return game;
-	}
-
-	public void setGame(Game game) {
-		this.game = game;
-	}
-
-	public ArrayList<Collectible> getCollectibles() {
-		return collectibles;
-	}
-
-	public void setCollectibles(ArrayList<Collectible> collectibles) {
-		this.collectibles = collectibles;
 	}
 
 	public PlayerListener getPlayerListener() {

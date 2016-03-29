@@ -43,12 +43,12 @@ public abstract class PlayableFighter extends Fighter implements PlayableCharact
 	}
 
 	public void setXp(int xp) {
-		if(xp > this.targetXp){
-			this.xp = 0;
+		this.xp = xp;
+		while(this.xp >= this.targetXp){
+			this.xp -= targetXp;
 			this.targetXp += 20;
 			this.abilityPoints += 2;
-		}else{
-			this.xp = xp;
+			this.setLevel(this.getLevel() + 1);
 		}
 	}
 

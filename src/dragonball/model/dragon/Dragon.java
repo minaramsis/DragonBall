@@ -1,6 +1,7 @@
 package dragonball.model.dragon;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import dragonball.model.attack.SuperAttack;
 import dragonball.model.attack.UltimateAttack;
@@ -19,6 +20,18 @@ public class Dragon {
 		this.ultimateAttacks = ultimateAttacks;
 		this.senzuBeans = senzuBeans;
 		this.abilityPoints = abilityPoints;
+	}
+	
+	public DragonWish[] getWishes(){
+		Random rand = new Random();
+		DragonWish[] wishes = new DragonWish[4];
+		wishes[0] = new DragonWish(this, DragonWishType.ABILITY_POINTS, abilityPoints);
+		wishes[1] = new DragonWish(this, DragonWishType.SENZU_BEANS, senzuBeans);
+		wishes[2] = new DragonWish(this, DragonWishType.SUPER_ATTACK,
+				superAttacks.get(rand.nextInt(superAttacks.size())));
+		wishes[3] = new DragonWish(this, DragonWishType.ULTIMATE_ATTACK,
+				ultimateAttacks.get(rand.nextInt(ultimateAttacks.size())));
+		return wishes;
 	}
 
 	public String getName() {
