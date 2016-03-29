@@ -49,10 +49,12 @@ public class World implements CellListener{
 	public void generateMap(ArrayList<NonPlayableFighter> weakFoes, ArrayList<NonPlayableFighter> strongFoes) {
 		// place the boss in position 0,0
 		map[0][0] = new FoeCell(getRandomFoe(strongFoes));
+		map[0][0].setCellListener(this);
 
 		// place an empty cell in place of the player in position 9,9
 		playerRow = playerColumn = MAP_SIZE - 1;
 		map[playerRow][playerColumn] = new EmptyCell();
+		map[playerRow][playerColumn].setCellListener(this);
 
 		// place weak foes
 		for (int i = NUM_WEAK_FOES; i > 0;) {
@@ -63,6 +65,7 @@ public class World implements CellListener{
 			// only place the foe if the cell is free
 			if (map[row][column] == null) {
 				map[row][column] = new FoeCell(getRandomFoe(weakFoes));
+				map[row][column] .setCellListener(this);
 				i--;
 			}
 		}
@@ -77,6 +80,7 @@ public class World implements CellListener{
 			// only place the senzu bean if the cell is free
 			if (map[row][column] == null) {
 				map[row][column] = new CollectibleCell(Collectible.SENZU_BEAN);
+				map[row][column].setCellListener(this);
 				i--;
 			}
 		}
@@ -89,6 +93,7 @@ public class World implements CellListener{
 			// only place the dragon ball if the cell is free
 			if (map[row][column] == null) {
 				map[row][column] = new CollectibleCell(Collectible.DRAGON_BALL);
+				map[row][column].setCellListener(this);
 				i--;
 			}
 		}
@@ -98,6 +103,7 @@ public class World implements CellListener{
 			for (int j = 0; j < map[i].length; j++) {
 				if (map[i][j] == null) {
 					map[i][j] = new EmptyCell();
+					map[i][j].setCellListener(this);
 				}
 			}
 		}
@@ -138,6 +144,7 @@ public class World implements CellListener{
 	public void onCollectibleFound(Collectible collectible) {
 		worldListener.onCollectibleFound(collectible);
 		map[playerRow][playerColumn] = new EmptyCell();
+		map[playerRow][playerColumn].setCellListener(this);
 	}
 	
 	public void resetPlayerPosition(){

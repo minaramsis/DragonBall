@@ -255,6 +255,7 @@ public class Game implements PlayerListener, WorldListener, BattleListener{
 		}else if(collectible == Collectible.SENZU_BEAN){
 			player.setSenzuBeans(player.getSenzuBeans()+1);
 		}
+		gameListener.onCollectibleFound(collectible);
 	}
 
 	public GameListener getGameListener() {

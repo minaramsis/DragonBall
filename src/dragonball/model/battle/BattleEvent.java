@@ -15,20 +15,25 @@ public class BattleEvent extends EventObject{
 	
 	public BattleEvent(Battle battle, BattleEventType type){
 		super(battle);
+		currentOpponent = battle.getAttacker();
+		this.type = type;
 	}
 	
 	public BattleEvent(Battle battle, BattleEventType type, BattleOpponent winner){
 		this(battle,type);
+		this.winner = winner;
 	}
 	
 	public BattleEvent(Battle battle, BattleEventType type, Attack attack){
 		this(battle,type);
+		this.attack = attack;
 	}
 	
 
 
 	public BattleEvent(Battle battle, BattleEventType type, Collectible collectible){
 		this(battle,type);
+		this.collectible = collectible;
 	}
 	
 	public BattleEventType getType() {

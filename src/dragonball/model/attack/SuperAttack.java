@@ -10,7 +10,6 @@ public class SuperAttack extends Attack {
 
 	@Override
 	int getAppliedDamage(BattleOpponent attacker) {
-		System.out.println(getDamage() + ((Fighter)attacker).getBlastDamage());
 		return getDamage() + ((Fighter)attacker).getBlastDamage();
 	}
 
