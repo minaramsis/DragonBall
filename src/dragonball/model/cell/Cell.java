@@ -1,12 +1,11 @@
 package dragonball.model.cell;
 
 import dragonball.model.world.World;
-import dragonball.model.world.WorldListener;
 
 public abstract class Cell {
 	
 	private World world;
-	private WorldListener worldListener;
+	private CellListener cellListener;
 	
 	@Override
 	public abstract String toString();
@@ -19,11 +18,11 @@ public abstract class Cell {
 	public void setWorld(World world) {
 		this.world = world;
 	}
-	public WorldListener getWorldListener() {
-		return worldListener;
+	public CellListener getCellListener() {
+		return cellListener;
 	}
-	public void setWorldListener(WorldListener worldListener) {
-		this.worldListener = worldListener;
+	public void setCellListener(CellListener cellListener) {
+		this.cellListener = cellListener;
 	}
 	
 	
