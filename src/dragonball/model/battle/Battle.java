@@ -57,10 +57,10 @@ public class Battle {
 	}
 	
 	public void attack(Attack attack){
-		attack.onUse(attacker, getDefender(), attacker.equals(me) ? meBlocking : foeBlocking);
-		endTurn();
+		attack.onUse(attacker, getDefender(), attacker.equals(me) ? foeBlocking : meBlocking);
 		BattleEvent battleEvent = new BattleEvent(this, BattleEventType.ATTACK, attack);
 		battleListener.onBattleEvent(battleEvent);
+		endTurn();
 	}
 	
 	public void block(){
@@ -72,6 +72,7 @@ public class Battle {
 		}
 		BattleEvent battleEvent = new BattleEvent(this, BattleEventType.BLOCK);
 		battleListener.onBattleEvent(battleEvent);
+		endTurn();
 	}
 	
 	public void use(Player player, Collectible collectible){
@@ -116,8 +117,11 @@ public class Battle {
 			BattleEvent battleEvent = new BattleEvent(this,BattleEventType.ENDED, attacker);
 			battleListener.onBattleEvent(battleEvent);
 		}else{
-			meBlocking = false;
-			foeBlocking = false;
+			if(attacker.equals(me)){
+				foeBlocking = false;
+			}else{
+				meBlocking = false;
+			}
 			switchTurn();
 			attacker.onAttackerTurn();
 			getDefender().onDefenderTurn();

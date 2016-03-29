@@ -2547,6 +2547,7 @@ public class M2PublicTests {
 				"if foe attacks me while me was blocking ,me's Stamina should be reduced according to the game rules",
 				1, e.getStamina());
 		
+		
 		assertEquals(
 				"When foe attacks me while me is blocking with Super attack and me's stamina reached zero , the health points of me should be reduced according to the game rules",
 				prevHP - (600-prevStamina*100), e.getHealthPoints());
