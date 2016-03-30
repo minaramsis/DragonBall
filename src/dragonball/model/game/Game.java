@@ -13,9 +13,12 @@ import dragonball.model.attack.SuperSaiyan;
 import dragonball.model.attack.UltimateAttack;
 import dragonball.model.battle.Battle;
 import dragonball.model.battle.BattleEvent;
+import dragonball.model.battle.BattleEventType;
 import dragonball.model.battle.BattleListener;
 import dragonball.model.cell.Collectible;
+import dragonball.model.character.fighter.Fighter;
 import dragonball.model.character.fighter.NonPlayableFighter;
+import dragonball.model.character.fighter.PlayableFighter;
 import dragonball.model.dragon.Dragon;
 import dragonball.model.dragon.DragonWish;
 import dragonball.model.player.Player;
@@ -40,6 +43,7 @@ public class Game implements PlayerListener, WorldListener, BattleListener{
 		attacks = new ArrayList<>();
 		dragons = new ArrayList<>();
 		state = GameState.WORLD;
+		gameListener = new GL();
 		
 		loadAttacks("Database-Attacks.csv");
 		loadFoes("Database-Foes-Range1.csv");
@@ -216,7 +220,21 @@ public class Game implements PlayerListener, WorldListener, BattleListener{
 
 	@Override
 	public void onBattleEvent(BattleEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getType() ==  BattleEventType.ENDED){
+			Battle battle = (Battle)e.getSource();
+			((PlayableFighter)battle.getMe()).setXp(((PlayableFighter)battle.getMe()).getXp()
+						+ ((Fighter)battle.getFoe()).getLevel()*5);
+			player.getSuperAttacks().addAll(((Fighter)battle.getFoe()).getSuperAttacks());
+			player.getUltimateAttacks().addAll(((Fighter)battle.getFoe()).getUltimateAttacks());
+			if(((NonPlayableFighter)battle.getFoe()).isStrong()){
+				player.setExploredMaps(player.getExploredMaps()+1);
+				world.generateMap(weakFoes, strongFoes);
+			}
+			state = GameState.WORLD;
+		}else if(e.getType() ==  BattleEventType.STARTED){
+			state = GameState.BATTLE;
+		}
+		gameListener.onBattleEvent(e);
 		
 	}
 

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import dragonball.model.cell.Collectible;
 import dragonball.model.character.fighter.Fighter;
+import dragonball.model.character.fighter.PlayableFighter;
 import dragonball.model.character.fighter.Saiyan;
 import dragonball.model.game.Game;
 import dragonball.model.player.Player;
@@ -113,7 +114,7 @@ public class Battle {
 	}
 	
 	public void endTurn(){
-		if(((Fighter)foe).getHealthPoints() <= 0){
+		if(((Fighter)getDefender()).getHealthPoints() <= 0){
 			BattleEvent battleEvent = new BattleEvent(this,BattleEventType.ENDED, attacker);
 			battleListener.onBattleEvent(battleEvent);
 		}else{
